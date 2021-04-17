@@ -1,14 +1,14 @@
 # mezzio-laminasviewrenderer-helpers
 
-[![Continuous Integration](https://github.com/mimmi20/mezzio-laminasviewrenderer-helpers/workflows/Continuous Integration/badge.svg?branch=master)](https://github.com/mimmi20/mezzio-laminasviewrenderer-helpers/actions)
-[![Close stale issues and pull requests](https://github.com/mimmi20/mezzio-laminasviewrenderer-helpers/workflows/Close stale issues and pull requests/badge.svg?branch=master)](https://github.com/mimmi20/mezzio-laminasviewrenderer-helpers/actions)
-[![Release](https://github.com/mimmi20/mezzio-laminasviewrenderer-helpers/workflows/Release/badge.svg?branch=master)](https://github.com/mimmi20/mezzio-laminasviewrenderer-helpers/actions)
-[![Renew License](https://github.com/mimmi20/mezzio-laminasviewrenderer-helpers/workflows/Renew License/badge.svg?branch=master)](https://github.com/mimmi20/mezzio-laminasviewrenderer-helpers/actions)
+[![Latest Stable Version](https://poser.pugx.org/mimmi20/mezzio-laminasviewrenderer-helpers/v/stable?format=flat-square)](https://packagist.org/packages/mimmi20/mezzio-laminasviewrenderer-helpers)
+[![Latest Unstable Version](https://poser.pugx.org/mimmi20/mezzio-laminasviewrenderer-helpers/v/unstable?format=flat-square)](https://packagist.org/packages/mimmi20/mezzio-laminasviewrenderer-helpers)
+[![License](https://poser.pugx.org/mimmi20/mezzio-laminasviewrenderer-helpers/license?format=flat-square)](https://packagist.org/packages/mimmi20/mezzio-laminasviewrenderer-helpers)
 
-[![Code Coverage](https://codecov.io/gh/mimmi20/mezzio-laminasviewrenderer-helpers/branch/master/graph/badge.svg)](https://codecov.io/gh/mimmi20/mezzio-laminasviewrenderer-helpers)
+## Code Status
 
-[![Latest Stable Version](https://poser.pugx.org/mimmi20/mezzio-laminasviewrenderer-helpers/v/stable)](https://packagist.org/packages/mimmi20/mezzio-laminasviewrenderer-helpers)
-[![Total Downloads](https://poser.pugx.org/mimmi20/mezzio-laminasviewrenderer-helpers/downloads)](https://packagist.org/packages/mimmi20/mezzio-laminasviewrenderer-helpers)
+[![codecov](https://codecov.io/gh/mimmi20/mezzio-laminasviewrenderer-helpers/branch/master/graph/badge.svg)](https://codecov.io/gh/mimmi20/mezzio-laminasviewrenderer-helpers)
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/mimmi20/mezzio-laminasviewrenderer-helpers.svg)](http://isitmaintained.com/project/mimmi20/mezzio-laminasviewrenderer-helpers "Average time to resolve an issue")
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/mimmi20/mezzio-laminasviewrenderer-helpers.svg)](http://isitmaintained.com/project/mimmi20/mezzio-laminasviewrenderer-helpers "Percentage of issues still open")
 
 ## Installation
 

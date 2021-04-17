@@ -22,6 +22,7 @@
   },
   "require-dev": {
     "infection/infection": "^0.21.5",
+    "laminas/laminas-servicemanager": "^3.6.4",
     "mimmi20/coding-standard": "^2.1.1",
     "pepakriz/phpstan-exception-rules": "^0.11.6",
     "phpstan/extension-installer": "^1.1.0",
@@ -31,15 +32,8 @@
     "phpunit/phpunit": "^9.5.4"
   },
   "suggest": {
-    "ext-dom": "required to use the Sitemap ViewHelper",
     "ext-intl": "required to use the Translator",
-    "ext-libxml": "required to use the Sitemap ViewHelper",
-    "laminas/laminas-config": "^3.5.0, to provide page configuration (optional, as arrays and Traversables are also allowed)",
-    "laminas/laminas-i18n": "^2.11.0, required to use the Translator",
-    "laminas/laminas-servicemanager": "^3.6.4, to use the navigation factories",
-    "laminas/laminas-uri": "^2.7.1 || ^2.8.0, required to use the Sitemap ViewHelper",
-    "laminas/laminas-validator": "^2.13.5 || ^2.14.0, required to use the Sitemap ViewHelper",
-    "mimmi20/mezzio-generic-authorization": "^1.0.1, to use authrization roles or privileges"
+    "laminas/laminas-servicemanager": "^3.6.4, to use the helper factories"
   },
   "config": {
     "platform": {
