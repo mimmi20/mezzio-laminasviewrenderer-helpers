@@ -14,7 +14,7 @@ parameters:
     reportUnusedCatchesOfUncheckedExceptions: true
     uncheckedExceptions: []
   checkMissingIterableValueType: false
-  excludes_analyse:
-    - */tests/*/data/*
-#  ignoreErrors:
-#    - '~MockObject~'
+#  excludes_analyse:
+#    - */tests/*/data/*
+  ignoreErrors:
+    - '~is not subtype of Throwable~'
