@@ -16,7 +16,7 @@ use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Model\ModelInterface;
 
-interface PartialRendererInterface
+interface PartialRendererInterface extends HelperInterface
 {
     /**
      * Returns an HTML string
