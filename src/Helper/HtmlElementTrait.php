@@ -10,7 +10,7 @@
 
 declare(strict_types = 1);
 
-namespace Mezzio\LaminasView\Helper;
+namespace Mezzio\LaminasViewHelper\Helper;
 
 use Laminas\Json\Json;
 use Laminas\View\Helper\EscapeHtml;
@@ -24,13 +24,9 @@ use function is_scalar;
 use function is_string;
 use function mb_strlen;
 use function mb_strpos;
-use function mb_strrpos;
-use function mb_strtolower;
-use function mb_substr;
 use function sprintf;
-use function trim;
 
-final class HtmlElement implements HtmlElementInterface
+trait HtmlElementTrait
 {
     private EscapeHtml $escaper;
 
@@ -43,15 +39,21 @@ final class HtmlElement implements HtmlElementInterface
     }
 
     /**
-     * Returns an HTML string
+     * Generate an opening tag
      *
      * @param array<string, (array<int, string>|bool|float|int|iterable|stdClass|string|null)> $attribs
-     *
-     * @return string HTML string (<a href="…">Label</a>)
      */
-    public function toHtml(string $element, array $attribs, string $content, string $prefix): string
+    private function open(string $element, array $attribs): string
     {
-        return '<' . $element . $this->htmlAttribs($prefix, $attribs) . '>' . $content . '</' . $element . '>';
+        return sprintf('<%s%s>', $element, $this->htmlAttribs($attribs));
+    }
+
+    /**
+     * Return a closing tag
+     */
+    private function close(string $element): string
+    {
+        return sprintf('</%s>', $element);
     }
 
     /**
@@ -60,7 +62,7 @@ final class HtmlElement implements HtmlElementInterface
      * @param array<string, (array<int, string>|bool|float|int|iterable|stdClass|string|null)> $attribs an array where each key-value pair is converted
      *                                                                                                  to an attribute name and value
      */
-    private function htmlAttribs(string $prefix, array $attribs): string
+    private function htmlAttribs(array $attribs): string
     {
         // filter out empty string values
         $attribs = array_filter(
@@ -91,10 +93,6 @@ final class HtmlElement implements HtmlElementInterface
 
             $val = ($this->escapeHtmlAttr)($val);
 
-            if ('id' === $key) {
-                $val = $this->normalizeId($prefix, $val);
-            }
-
             if (false !== mb_strpos($val, '"')) {
                 $xhtml .= sprintf(' %s=\'%s\'', $key, $val);
             } else {
@@ -103,15 +101,5 @@ final class HtmlElement implements HtmlElementInterface
         }
 
         return $xhtml;
-    }
-
-    /**
-     * Normalize an ID
-     */
-    private function normalizeId(string $prefix, string $value): string
-    {
-        $prefix = mb_strtolower(trim(mb_substr($prefix, (int) mb_strrpos($prefix, '\\')), '\\'));
-
-        return $prefix . '-' . $value;
     }
 }

@@ -10,7 +10,7 @@
 
 declare(strict_types = 1);
 
-namespace Mezzio\LaminasView\Helper;
+namespace Mezzio\LaminasViewHelper;
 
 final class ConfigProvider
 {
@@ -23,6 +23,7 @@ final class ConfigProvider
     {
         return [
             'dependencies' => $this->getDependencyConfig(),
+            'view_helpers' => $this->getViewHelperConfig(),
         ];
     }
 
@@ -35,7 +36,22 @@ final class ConfigProvider
     {
         return [
             'factories' => [
-                PluginManager::class => PluginManagerFactory::class,
+                Helper\PluginManager::class => Helper\PluginManagerFactory::class,
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, array<string, string>>
+     */
+    public function getViewHelperConfig(): array
+    {
+        return [
+            'factories' => [
+                View\Helper\HtmlElement::class => View\Helper\HtmlElementFactory::class,
+            ],
+            'aliases' => [
+                'htmlElement' => View\Helper\HtmlElement::class,
             ],
         ];
     }

@@ -10,12 +10,12 @@
 
 declare(strict_types = 1);
 
-namespace MezzioTest\LaminasView\Helper;
+namespace MezzioTest\LaminasViewHelper\Helper;
 
 use Interop\Container\ContainerInterface;
-use Mezzio\LaminasView\Helper\PartialRenderer;
-use Mezzio\LaminasView\Helper\PartialRendererFactory;
 use Mezzio\LaminasView\LaminasViewRenderer;
+use Mezzio\LaminasViewHelper\Helper\PartialRenderer;
+use Mezzio\LaminasViewHelper\Helper\PartialRendererFactory;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\RecursionContext\InvalidArgumentException;

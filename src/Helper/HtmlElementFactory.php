@@ -10,21 +10,26 @@
 
 declare(strict_types = 1);
 
-namespace Mezzio\LaminasView\Helper;
+namespace Mezzio\LaminasViewHelper\Helper;
 
 use Interop\Container\ContainerInterface;
-use Mezzio\LaminasView\LaminasViewRenderer;
+use Laminas\View\Helper\EscapeHtml;
+use Laminas\View\Helper\EscapeHtmlAttr;
+use Laminas\View\HelperPluginManager as ViewHelperPluginManager;
 use Psr\Container\ContainerExceptionInterface;
 
-final class PartialRendererFactory
+final class HtmlElementFactory
 {
     /**
      * @throws ContainerExceptionInterface
      */
-    public function __invoke(ContainerInterface $container): PartialRenderer
+    public function __invoke(ContainerInterface $container): HtmlElement
     {
-        return new PartialRenderer(
-            $container->get(LaminasViewRenderer::class)
+        $plugin = $container->get(ViewHelperPluginManager::class);
+
+        return new HtmlElement(
+            $plugin->get(EscapeHtml::class),
+            $plugin->get(EscapeHtmlAttr::class)
         );
     }
 }
