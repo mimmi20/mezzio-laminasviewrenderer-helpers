@@ -10,11 +10,11 @@
 
 declare(strict_types = 1);
 
-namespace MezzioTest\LaminasView\Helper;
+namespace MezzioTest\LaminasViewHelper\Helper;
 
 use Interop\Container\ContainerInterface;
-use Mezzio\LaminasView\Helper\PluginManager;
-use Mezzio\LaminasView\Helper\PluginManagerFactory;
+use Mezzio\LaminasViewHelper\Helper\PluginManager;
+use Mezzio\LaminasViewHelper\Helper\PluginManagerFactory;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\RecursionContext\InvalidArgumentException;

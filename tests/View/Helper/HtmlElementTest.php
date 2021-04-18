@@ -10,11 +10,11 @@
 
 declare(strict_types = 1);
 
-namespace MezzioTest\LaminasView\Helper;
+namespace MezzioTest\LaminasViewHelper\View\Helper;
 
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
-use Mezzio\LaminasView\Helper\HtmlElement;
+use Mezzio\LaminasViewHelper\View\Helper\HtmlElement;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\RecursionContext\InvalidArgumentException;
@@ -25,17 +25,16 @@ final class HtmlElementTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      */
-    public function testToHtml(): void
+    public function testOpen(): void
     {
-        $expected = '<a id="breadcrumbs-testIdEscaped" classEscaped="testClassEscaped" hrefEscaped="#Escaped" targetEscaped="_blankEscaped" onClick=\'{"a":"b"}\' data-test="test-class1 test-class2">testLabelTranslatedAndEscaped</a>';
+        $expected = '<a id="testIdEscaped" classEscaped="testClassEscaped" hrefEscaped="#Escaped" targetEscaped="_blankEscaped" onClick=\'{"a":"b"}\' data-test="test-class1 test-class2">';
 
-        $escapedTranslatedLabel = 'testLabelTranslatedAndEscaped';
-        $id                     = 'testId';
-        $class                  = 'test-class';
-        $href                   = '#';
-        $target                 = '_blank';
-        $onclick                = (object) ['a' => 'b'];
-        $testData               = ['test-class1', 'test-class2'];
+        $id       = 'testId';
+        $class    = 'test-class';
+        $href     = '#';
+        $target   = '_blank';
+        $onclick  = (object) ['a' => 'b'];
+        $testData = ['test-class1', 'test-class2'];
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
             ->disableOriginalConstructor()
@@ -87,11 +86,9 @@ final class HtmlElementTest extends TestCase
 
         self::assertSame(
             $expected,
-            $htmlElement->toHtml(
+            $htmlElement->openTag(
                 $element,
                 ['id' => $id, 'title' => '', 'class' => $class, 'href' => $href, 'target' => $target, 'onClick' => $onclick, 'data-test' => $testData],
-                $escapedTranslatedLabel,
-                'Breadcrumbs'
             )
         );
     }
@@ -102,15 +99,14 @@ final class HtmlElementTest extends TestCase
      */
     public function testToHtmlIgnoringNullAttributes(): void
     {
-        $expected = '<a id="breadcrumbs-testIdEscaped" classEscaped="testClassEscaped" hrefEscaped="#Escaped" targetEscaped="_blankEscaped" onClick=\'{"a":"b"}\' data-test="test-class1 test-class2">testLabelTranslatedAndEscaped</a>';
+        $expected = '<a id="testIdEscaped" classEscaped="testClassEscaped" hrefEscaped="#Escaped" targetEscaped="_blankEscaped" onClick=\'{"a":"b"}\' data-test="test-class1 test-class2">';
 
-        $escapedTranslatedLabel = 'testLabelTranslatedAndEscaped';
-        $id                     = 'testId';
-        $class                  = 'test-class';
-        $href                   = '#';
-        $target                 = '_blank';
-        $onclick                = (object) ['a' => 'b'];
-        $testData               = ['test-class1', 'test-class2'];
+        $id       = 'testId';
+        $class    = 'test-class';
+        $href     = '#';
+        $target   = '_blank';
+        $onclick  = (object) ['a' => 'b'];
+        $testData = ['test-class1', 'test-class2'];
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
             ->disableOriginalConstructor()
@@ -162,11 +158,9 @@ final class HtmlElementTest extends TestCase
 
         self::assertSame(
             $expected,
-            $htmlElement->toHtml(
+            $htmlElement->openTag(
                 $element,
                 ['id' => $id, 'title' => '', 'class' => $class, 'href' => $href, 'target' => $target, 'onClick' => $onclick, 'data-test' => $testData, 'open' => null],
-                $escapedTranslatedLabel,
-                'Breadcrumbs'
             )
         );
     }
@@ -175,17 +169,16 @@ final class HtmlElementTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      */
-    public function testToHtmlNotIgnoringTrueAttributes(): void
+    public function testOpenNotIgnoringTrueAttributes(): void
     {
-        $expected = '<a id="breadcrumbs-testIdEscaped" classEscaped="testClassEscaped" hrefEscaped="#Escaped" targetEscaped="_blankEscaped" onClick=\'{"a":"b"}\' data-test="test-class1 test-class2" openEscaped>testLabelTranslatedAndEscaped</a>';
+        $expected = '<a id="testIdEscaped" classEscaped="testClassEscaped" hrefEscaped="#Escaped" targetEscaped="_blankEscaped" onClick=\'{"a":"b"}\' data-test="test-class1 test-class2" openEscaped>';
 
-        $escapedTranslatedLabel = 'testLabelTranslatedAndEscaped';
-        $id                     = 'testId';
-        $class                  = 'test-class';
-        $href                   = '#';
-        $target                 = '_blank';
-        $onclick                = (object) ['a' => 'b'];
-        $testData               = ['test-class1', 'test-class2'];
+        $id       = 'testId';
+        $class    = 'test-class';
+        $href     = '#';
+        $target   = '_blank';
+        $onclick  = (object) ['a' => 'b'];
+        $testData = ['test-class1', 'test-class2'];
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
             ->disableOriginalConstructor()
@@ -239,12 +232,66 @@ final class HtmlElementTest extends TestCase
 
         self::assertSame(
             $expected,
-            $htmlElement->toHtml(
+            $htmlElement->openTag(
                 $element,
                 ['id' => $id, 'title' => '', 'class' => $class, 'href' => $href, 'target' => $target, 'onClick' => $onclick, 'data-test' => $testData, 'open' => true],
-                $escapedTranslatedLabel,
-                'Breadcrumbs'
             )
+        );
+    }
+
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     */
+    public function testClose(): void
+    {
+        $expected = '</a>';
+
+        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $escapeHtml->expects(self::never())
+            ->method('__invoke');
+
+        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $escapeHtmlAttr->expects(self::never())
+            ->method('__invoke');
+
+        $element = 'a';
+
+        $htmlElement = new HtmlElement($escapeHtml, $escapeHtmlAttr);
+
+        self::assertSame(
+            $expected,
+            $htmlElement->closeTag($element)
+        );
+    }
+
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     */
+    public function testInvoke(): void
+    {
+        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $escapeHtml->expects(self::never())
+            ->method('__invoke');
+
+        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $escapeHtmlAttr->expects(self::never())
+            ->method('__invoke');
+
+        $htmlElement = new HtmlElement($escapeHtml, $escapeHtmlAttr);
+
+        self::assertSame(
+            $htmlElement,
+            ($htmlElement)()
         );
     }
 }

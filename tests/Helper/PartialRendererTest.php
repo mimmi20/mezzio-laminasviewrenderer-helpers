@@ -10,14 +10,14 @@
 
 declare(strict_types = 1);
 
-namespace MezzioTest\LaminasView\Helper;
+namespace MezzioTest\LaminasViewHelper\Helper;
 
 use Laminas\View\Exception\ExceptionInterface;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Model\ModelInterface;
-use Mezzio\LaminasView\Helper\PartialRenderer;
 use Mezzio\LaminasView\LaminasViewRenderer;
+use Mezzio\LaminasViewHelper\Helper\PartialRenderer;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 

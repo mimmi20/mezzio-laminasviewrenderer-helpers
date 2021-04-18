@@ -10,7 +10,7 @@
 
 declare(strict_types = 1);
 
-namespace Mezzio\LaminasView\Helper;
+namespace Mezzio\LaminasViewHelper\Helper;
 
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Exception\RuntimeException;

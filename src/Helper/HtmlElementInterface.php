@@ -10,7 +10,7 @@
 
 declare(strict_types = 1);
 
-namespace Mezzio\LaminasView\Helper;
+namespace Mezzio\LaminasViewHelper\Helper;
 
 interface HtmlElementInterface extends HelperInterface
 {
@@ -19,7 +19,7 @@ interface HtmlElementInterface extends HelperInterface
      *
      * @param array<string, array<string>|bool|float|int|iterable|string|null> $attribs
      *
-     * @return string HTML string (<a href="…">Label</a>)
+     * @return string HTML string
      */
-    public function toHtml(string $element, array $attribs, string $content, string $prefix): string;
+    public function toHtml(string $element, array $attribs, string $content): string;
 }

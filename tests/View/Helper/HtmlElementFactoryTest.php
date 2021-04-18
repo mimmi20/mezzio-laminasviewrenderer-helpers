@@ -10,14 +10,14 @@
 
 declare(strict_types = 1);
 
-namespace MezzioTest\LaminasView\Helper;
+namespace MezzioTest\LaminasViewHelper\View\Helper;
 
 use Interop\Container\ContainerInterface;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\View\HelperPluginManager;
-use Mezzio\LaminasView\Helper\HtmlElement;
-use Mezzio\LaminasView\Helper\HtmlElementFactory;
+use Mezzio\LaminasViewHelper\View\Helper\HtmlElement;
+use Mezzio\LaminasViewHelper\View\Helper\HtmlElementFactory;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\RecursionContext\InvalidArgumentException;
