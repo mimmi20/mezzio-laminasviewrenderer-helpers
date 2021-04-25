@@ -21,7 +21,7 @@ final class HtmlElement implements HtmlElementInterface
     /**
      * Returns an HTML string
      *
-     * @param array<string, (array<int, string>|bool|float|int|iterable|stdClass|string|null)> $attribs
+     * @param array<int|string, (array<int, string>|bool|float|int|iterable|stdClass|string|null)> $attribs
      *
      * @return string HTML string
      */

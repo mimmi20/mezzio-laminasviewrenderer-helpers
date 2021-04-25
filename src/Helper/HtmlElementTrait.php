@@ -16,32 +16,35 @@ use Laminas\Json\Json;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
 use stdClass;
+use Traversable;
 
 use function array_filter;
+use function assert;
 use function implode;
 use function is_array;
 use function is_scalar;
 use function is_string;
+use function iterator_to_array;
 use function mb_strlen;
 use function mb_strpos;
 use function sprintf;
 
 trait HtmlElementTrait
 {
-    private EscapeHtml $escaper;
+    private EscapeHtml $escapeHtml;
 
     private EscapeHtmlAttr $escapeHtmlAttr;
 
-    public function __construct(EscapeHtml $escaper, EscapeHtmlAttr $escapeHtmlAttr)
+    public function __construct(EscapeHtml $escapeHtml, EscapeHtmlAttr $escapeHtmlAttr)
     {
-        $this->escaper        = $escaper;
+        $this->escapeHtml     = $escapeHtml;
         $this->escapeHtmlAttr = $escapeHtmlAttr;
     }
 
     /**
      * Generate an opening tag
      *
-     * @param array<string, (array<int, string>|bool|float|int|iterable|stdClass|string|null)> $attribs
+     * @param array<int|string, (array<int, string>|bool|float|int|iterable|stdClass|string|null)> $attribs
      */
     private function open(string $element, array $attribs): string
     {
@@ -59,8 +62,8 @@ trait HtmlElementTrait
     /**
      * Converts an associative array to a string of tag attributes.
      *
-     * @param array<string, (array<int, string>|bool|float|int|iterable|stdClass|string|null)> $attribs an array where each key-value pair is converted
-     *                                                                                                  to an attribute name and value
+     * @param array<int|string, (array<int, string>|bool|float|int|iterable|stdClass|string|null)> $attribs an array where each key-value pair is converted
+     *                                                                                                      to an attribute name and value
      */
     private function htmlAttribs(array $attribs): string
     {
@@ -73,7 +76,13 @@ trait HtmlElementTrait
         $xhtml = '';
 
         foreach ($attribs as $key => $val) {
-            $key = ($this->escaper)($key);
+            if (!is_string($key)) {
+                continue;
+            }
+
+            assert(is_string($key));
+
+            $key = ($this->escapeHtml)($key);
 
             if (true === $val) {
                 $xhtml .= sprintf(' %s', $key);
@@ -81,17 +90,27 @@ trait HtmlElementTrait
                 continue;
             }
 
-            if (0 === mb_strpos($key, 'on') || ('constraints' === $key)) {
+            if (0 === mb_strpos($key, 'on') || ('constraints' === $key) || $val instanceof stdClass) {
                 // Don't escape event attributes; _do_ substitute double quotes with singles
                 if (!is_scalar($val)) {
                     // non-scalar data should be cast to JSON first
                     $val = Json::encode($val);
                 }
-            } elseif (is_array($val)) {
-                $val = implode(' ', $val);
-            }
+            } else {
+                if (is_array($val) || $val instanceof Traversable) {
+                    if ($val instanceof Traversable) {
+                        $val = iterator_to_array($val);
+                    }
 
-            $val = ($this->escapeHtmlAttr)($val);
+                    $val = implode(' ', $val);
+                } elseif (!is_string($val)) {
+                    $val = (string) $val;
+                }
+
+                assert(is_string($val));
+
+                $val = ($this->escapeHtmlAttr)($val);
+            }
 
             if (false !== mb_strpos($val, '"')) {
                 $xhtml .= sprintf(' %s=\'%s\'', $key, $val);
