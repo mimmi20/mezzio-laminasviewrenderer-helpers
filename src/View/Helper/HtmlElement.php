@@ -28,7 +28,7 @@ final class HtmlElement extends AbstractHelper
     /**
      * Generate an opening tag
      *
-     * @param array<string, (array<int, string>|bool|float|int|iterable|stdClass|string|null)> $attribs
+     * @param array<int|string, (array<int, string>|bool|float|int|iterable|stdClass|string|null)> $attribs
      */
     public function openTag(string $element, array $attribs): string
     {
