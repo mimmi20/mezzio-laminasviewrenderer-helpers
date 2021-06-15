@@ -38,9 +38,6 @@
     "laminas/laminas-servicemanager": "^3.6.4, to use the helper factories"
   },
   "config": {
-    "platform": {
-      "php": "7.4.7"
-    },
     "preferred-install": "dist",
     "sort-packages": true
   },
