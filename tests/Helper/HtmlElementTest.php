@@ -415,4 +415,87 @@ final class HtmlElementTest extends TestCase
             )
         );
     }
+
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     */
+    public function testOpenWithConfigAttributes2(): void
+    {
+        $expected = '<a id="testIdEscaped" classEscaped="testClassEscaped" hrefEscaped="#Escaped" targetEscaped="_blankEscaped" data-click-escaped=\'{"a":"b"}\' data-test="test-class1 test-class2" openEscaped valueEscaped="0" vonEscaped="xyzEscaped">testLabelTranslatedAndEscaped</a>';
+
+        $escapedTranslatedLabel = 'testLabelTranslatedAndEscaped';
+        $id                     = 'testId';
+        $class                  = 'test-class';
+        $href                   = '#';
+        $target                 = '_blank';
+        $onclick                = (object) ['a' => 'b'];
+        $testData               = new Config(['test-class1', 'test-class2']);
+        $value                  = 0;
+
+        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $escapeHtml->expects(self::exactly(9))
+            ->method('__invoke')
+            ->withConsecutive(
+                ['id'],
+                ['class'],
+                ['href'],
+                ['target'],
+                ['data-click'],
+                ['data-test'],
+                ['open'],
+                ['value'],
+                ['von']
+            )
+            ->willReturnOnConsecutiveCalls(
+                'id',
+                'classEscaped',
+                'hrefEscaped',
+                'targetEscaped',
+                'data-click-escaped',
+                'data-test',
+                'openEscaped',
+                'valueEscaped',
+                'vonEscaped'
+            );
+
+        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $escapeHtmlAttr->expects(self::exactly(7))
+            ->method('__invoke')
+            ->withConsecutive(
+                [$id],
+                [$class],
+                [$href],
+                [$target],
+                ['test-class1 test-class2'],
+                [(string) $value],
+                ['xyz']
+            )
+            ->willReturnOnConsecutiveCalls(
+                'testIdEscaped',
+                'testClassEscaped',
+                '#Escaped',
+                '_blankEscaped',
+                'test-class1 test-class2',
+                (string) $value,
+                'xyzEscaped'
+            );
+
+        $element = 'a';
+
+        $htmlElement = new HtmlElement($escapeHtml, $escapeHtmlAttr);
+
+        self::assertSame(
+            $expected,
+            $htmlElement->toHtml(
+                $element,
+                ['id' => $id, 'title' => '', 'class' => $class, 'href' => $href, 'target' => $target, 'data-click' => $onclick, 'data-test' => $testData, 'xxx', 'open' => true, 'value' => $value, 'von' => 'xyz'],
+                $escapedTranslatedLabel
+            )
+        );
+    }
 }
