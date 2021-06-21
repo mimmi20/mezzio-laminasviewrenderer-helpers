@@ -8,7 +8,7 @@ name: "Continuous Integration"
 
 env:
   PHP_EXTENSIONS: "json, mbstring, opcache"
-  PHP_INI_VALUES: "opcache.enable=1, opcache.enable_cli=1, zend.assertions=1, assert.exception=On"
+  PHP_INI_VALUES: "opcache.enable=1, opcache.enable_cli=1, opcache.fast_shutdown=0, zend.assertions=1, assert.exception=On"
 
 jobs:
   validate:
@@ -65,8 +65,6 @@ jobs:
       matrix:
         operating-system:
           - "ubuntu-latest"
-#          - "windows-latest"
-#          - "macos-latest"
 
         php-version:
           - "7.4"
@@ -77,56 +75,6 @@ jobs:
 
         continue-on-error:
           - false
-
-#        include:
-#          - operating-system: "ubuntu-latest"
-#            php-version: "8.0"
-#            dependencies: "--prefer-lowest"
-#            continue-on-error: true
-#          - operating-system: "ubuntu-latest"
-#            php-version: "8.0"
-#            dependencies: ""
-#            continue-on-error: true
-#          - operating-system: "windows-latest"
-#            dependencies: "--prefer-lowest"
-#            php-version: "8.0"
-#            continue-on-error: true
-#          - operating-system: "windows-latest"
-#            dependencies: ""
-#            php-version: "8.0"
-#            continue-on-error: true
-#          - operating-system: "macos-latest"
-#            dependencies: "--prefer-lowest"
-#            php-version: "8.0"
-#            continue-on-error: true
-#          - operating-system: "macos-latest"
-#            dependencies: ""
-#            php-version: "8.0"
-#            continue-on-error: true
-#          - operating-system: "ubuntu-latest"
-#            php-version: "8.1"
-#            dependencies: "--prefer-lowest"
-#            continue-on-error: true
-#          - operating-system: "ubuntu-latest"
-#            php-version: "8.1"
-#            dependencies: ""
-#            continue-on-error: true
-#          - operating-system: "windows-latest"
-#            dependencies: "--prefer-lowest"
-#            php-version: "8.1"
-#            continue-on-error: true
-#          - operating-system: "windows-latest"
-#            dependencies: ""
-#            php-version: "8.1"
-#            continue-on-error: true
-#          - operating-system: "macos-latest"
-#            dependencies: "--prefer-lowest"
-#            php-version: "8.1"
-#            continue-on-error: true
-#          - operating-system: "macos-latest"
-#            dependencies: ""
-#            php-version: "8.1"
-#            continue-on-error: true
 
     steps:
       - name: "Checkout"
@@ -450,4 +398,4 @@ jobs:
           verbose: true
 
       - name: "Run mutation tests with infection/infection"
-        run: "vendor/bin/infection --min-covered-msi=92 --min-msi=92 --coverage=.build/coverage"
+        run: "vendor/bin/infection --min-covered-msi=98 --min-msi=96 --git-diff-filter=AM --git-diff-base=origin/$GITHUB_BASE_REF --coverage=.build/coverage --logger-github"
